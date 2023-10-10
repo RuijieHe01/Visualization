@@ -266,3 +266,25 @@ weather_df %>%
 ```
 
 
+##Setting options
+
+```{r, eval = FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = 0.6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom")) #Update the theme everywhere in this project
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+sacle_color_discrete = scale_color_viridis_d
+sacle_fill_discrete = scale_fill_viridis_d
+```
+
