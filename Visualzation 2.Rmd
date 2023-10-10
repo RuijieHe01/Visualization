@@ -1,0 +1,64 @@
+---
+title: "Visualization"
+subtitile: "Part II"
+output: github_document
+date: "2023-10-10"
+---
+
+```{r}
+library(tidyverse)
+library(patchwork) #Arrange panels
+```
+
+## Load the weather data
+
+```{r}
+weather_df = 
+  rnoaa::meteo_pull_monitors(
+    c("USW00094728", "USW00022534", "USS0023B17S"), #3 monitor stations to pull (allow to access data online)
+    var = c("PRCP", "TMIN", "TMAX"), # several variables
+    date_min = "2021-01-01", #begin date
+    date_max = "2022-12-31") |> #end date
+  mutate( #reorganize the dataset
+    name = recode(
+      id, 
+      USW00094728 = "CentralPark_NY",
+      USW00022534 = "Molokai_HI",
+      USS0023B17S = "Waterhole_WA"),
+    tmin = tmin / 10, #data manipulation
+    tmax = tmax / 10) |> #change the temperature unit to Celcius
+  select(name, id, everything()) #select process
+
+weather_df
+
+```
+
+## Remember this plot
+
+**More fine-grained detail on plotting**
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5)
+```
+
+## Labels
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  )
+```
+
+
+
+
+
+
