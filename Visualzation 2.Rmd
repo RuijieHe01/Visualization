@@ -133,4 +133,136 @@ weather_df %>%
 ```
 
 
+## Themes
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme(legend.position = "bottom")
+```
+
+## Change the whole theme
+
+Popular one `theme_bw`
+
+You get a box around the outside, white background, and grey grid lines
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_bw()
+```
+
+`theme_minimal` almost the same with `theme_bw`, but takes the box outside of the graphs.
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_minimal()
+```
+
+**Other things to use**
+
+`theme_classic` (no grid lines in the background, *not prefer*)
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_classic()
+```
+
+`ggthemes::theme_economist`
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  ggthemes::theme_economist()
+```
+
+`ggthemes_theme_excel` (to make it looks like excel)
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  ggthemes::theme_excel()
+```
+
+Back to `theme_minimal`
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
 

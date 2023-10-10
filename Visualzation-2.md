@@ -205,3 +205,165 @@ weather_df %>%
     ## Warning: Removed 17 rows containing missing values (`geom_point()`).
 
 ![](Visualzation-2_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+## Themes
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme(legend.position = "bottom")
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+## Change the whole theme
+
+Popular one `theme_bw`
+
+You get a box around the outside, white background, and grey grid lines
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_bw()
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+
+`theme_minimal` almost the same with `theme_bw`, but takes the box
+outside of the graphs.
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_minimal()
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+**Other things to use**
+
+`theme_classic` (no grid lines in the background, *not prefer*)
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_classic()
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+`ggthemes::theme_economist`
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  ggthemes::theme_economist()
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+`ggthemes_theme_excel` (to make it looks like excel)
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  ggthemes::theme_excel()
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+Back to `theme_minimal`
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maximum daily temperature (C)",
+    caption = "Data from rnoaa package; temperatures in 2017."
+  ) +
+  viridis::scale_color_viridis ( #Describe features of colors)
+    name = "Location",
+    discrete = TRUE) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
