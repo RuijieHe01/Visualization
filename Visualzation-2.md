@@ -585,3 +585,13 @@ weather_df %>%
 ![](Visualzation-2_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 Quick example
+
+## Revisit the pups
+
+Data from the FAS study.
+
+``` r
+pups_data =
+  read.csv("./data/FAS_pups.csv") %>% 
+  janitor::clean_names()
+```
