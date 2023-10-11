@@ -503,3 +503,85 @@ tmax_tmin_plot / (prcp_dens_plot + tmax_date_plot)
     ## Removed 17 rows containing missing values (`geom_point()`).
 
 ![](Visualzation-2_files/figure-gfm/unnamed-chunk-19-3.png)<!-- -->
+
+## Data manipulation
+
+Control your factors.
+
+``` r
+weather_df %>% 
+  ggplot(aes(x = name, y = tmax, fill = name)) +
+  geom_violin(alpha = 0.5)
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_ydensity()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+To add *factors* to the plot
+
+``` r
+weather_df %>% 
+  mutate(
+    name = factor(name)
+  ) %>% 
+  ggplot(aes(x = name, y = tmax, fill = name)) +
+  geom_violin(alpha = 0.5)
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_ydensity()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+To change orders of the three plots by adding *factors*
+
+``` r
+weather_df %>% 
+  mutate(
+    name = factor(name),
+    name = forcats::fct_relevel(name, c("Molokai_HI"))
+  ) %>% 
+  ggplot(aes(x = name, y = tmax, fill = name)) +
+  geom_violin(alpha = 0.5)
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_ydensity()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
+What if I wanted densities for tmin and tmax simultaneously? (want tmin
+and tmax overlad on top of each other)
+
+``` r
+weather_df %>% 
+  filter(name == "CentralPark_NY") %>% #data tidying
+  pivot_longer(
+    tmax:tmin,
+    names_to = "observation",
+    values_to = "temperatures"
+  ) %>% 
+  ggplot(aes(x = temperatures, fill = observation)) +
+  geom_density(alpha = 0.5)
+```
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+
+More about data tidiness issue
+
+``` r
+weather_df %>% 
+  pivot_longer(
+    tmax:tmin,
+    names_to = "observation",
+    values_to = "temperatures"
+  ) %>% 
+  ggplot(aes(x = temperatures, fill = observation)) +
+  geom_density(alpha = 0.5) +
+  facet_grid(. ~ name)
+```
+
+    ## Warning: Removed 34 rows containing non-finite values (`stat_density()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+Quick example
