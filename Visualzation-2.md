@@ -409,3 +409,97 @@ ggplot(data = molokai, aes(x = date, y = tmax, color = name)) +
     ## Warning: Removed 1 rows containing missing values (`geom_point()`).
 
 ![](Visualzation-2_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+## `patchwork`
+
+Remember faceting?
+
+``` r
+weather_df %>% 
+  ggplot(aes( x= tmin, fill = name)) +
+  geom_density(alpha = 0.5) +
+  facet_grid(. ~ name)
+```
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_density()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+What happens when you want multipanel plots but can’t facet?
+
+``` r
+tmax_tmin_plot =
+  weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  theme(legend.position = "none")
+
+prcp_dens_plot =
+  weather_df %>% 
+  ggplot(aes(x = prcp, fill = name)) +
+  geom_density(alpha = 0.5)
+```
+
+Add filtering to `prcp_dens_plot`
+
+``` r
+prcp_dens_plot =
+  weather_df %>% 
+  filter(prcp > 0) %>% 
+  ggplot(aes(x = prcp, fill = name)) +
+  geom_density(alpha = 0.5) +
+  theme(legend.position = "none")
+```
+
+Seasonality
+
+``` r
+tmax_date_plot =
+  weather_df %>% 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme(legend.position = "none")
+```
+
+Put the 3 plots together
+
+``` r
+# Give the first plot more space
+tmax_tmin_plot + (prcp_dens_plot + tmax_date_plot)
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+``` r
+tmax_tmin_plot / (prcp_dens_plot + tmax_date_plot)
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-19-2.png)<!-- -->
+
+``` r
+(tmax_tmin_plot + prcp_dens_plot) / tmax_date_plot
+```
+
+    ## Warning: Removed 17 rows containing missing values (`geom_point()`).
+
+    ## `geom_smooth()` using method = 'loess' and formula = 'y ~ x'
+
+    ## Warning: Removed 17 rows containing non-finite values (`stat_smooth()`).
+    ## Removed 17 rows containing missing values (`geom_point()`).
+
+![](Visualzation-2_files/figure-gfm/unnamed-chunk-19-3.png)<!-- -->

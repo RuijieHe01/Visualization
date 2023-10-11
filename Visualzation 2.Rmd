@@ -305,8 +305,64 @@ ggplot(data = molokai, aes(x = date, y = tmax, color = name)) +
 ```
 
 
+## `patchwork`
 
+Remember faceting?
 
+```{r}
+weather_df %>% 
+  ggplot(aes( x= tmin, fill = name)) +
+  geom_density(alpha = 0.5) +
+  facet_grid(. ~ name)
+```
+
+What happens when you want multipanel plots but can't facet?
+
+```{r tmax_tmin_plot}
+tmax_tmin_plot =
+  weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = 0.5) +
+  theme(legend.position = "none")
+
+prcp_dens_plot =
+  weather_df %>% 
+  ggplot(aes(x = prcp, fill = name)) +
+  geom_density(alpha = 0.5)
+```
+
+Add filtering to `prcp_dens_plot`
+
+```{r filtered prcp_dens_plot}
+prcp_dens_plot =
+  weather_df %>% 
+  filter(prcp > 0) %>% 
+  ggplot(aes(x = prcp, fill = name)) +
+  geom_density(alpha = 0.5) +
+  theme(legend.position = "none")
+```
+
+Seasonality
+
+```{r tmax_date_plot}
+tmax_date_plot =
+  weather_df %>% 
+  ggplot(aes(x = date, y = tmax, color = name)) +
+  geom_point() +
+  geom_smooth(se = FALSE) +
+  theme(legend.position = "none")
+```
+
+Put the 3 plots together
+
+```{r}
+# Give the first plot more space
+tmax_tmin_plot + (prcp_dens_plot + tmax_date_plot)
+
+tmax_tmin_plot / (prcp_dens_plot + tmax_date_plot)
+
+(tmax_tmin_plot + prcp_dens_plot) / tmax_date_plot
+```
 
 
 
